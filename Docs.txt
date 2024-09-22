@@ -1,0 +1,200 @@
+19/9/24
+
+**Path in vite.config file**
+
+--> allow "src" directory to access as "@"
+
+step 1: -->
+    //
+    resolve:{
+        alias:[{find:'@',replacement:path.resolve(__dirname,"src")}]
+    },
+    //
+    -->add this code in vite.config--> import path
+step 2 : -->
+    //
+    "paths":{
+      "@/*" : ["./src/*"]
+    },
+    //
+    --> add this code under compiler option in tsconfig.app.json
+
+
+**prettier config **
+
+--> allows tailwindcss classnames to fix in order
+
+step 1: npm install -D prettier prettier-plugin-tailwindcss
+step 2: create prettier.config.cjs
+step 3: --> import prettier-plugin-tailwindcss as module
+        //
+        module.exports={
+            plugins:[require("prettier-plugin-tailwindcss")],
+        };
+        //
+
+
+**TypeScript Practices**
+
+==> Defining Types and making it as strict as possible
+==> using enums in a separate file and import to use it 
+==> treating enums as a type **
+==> adding type in usestate ==> 
+/*
+    const [selectedPage,setSelectedPage]=useState<SelectedPage>(SelectedPage.Home)
+*/
+==> convert props strings into lowercase to make sure it fits in the enums
+==> use the keyword as to treat a value as a enum
+/*
+    const lowerCasePage = page.toLowerCase().replace(/ /g,"") as SelectedPage
+*/
+
+error ==> AnchorLink interfere with onclick
+
+
+
+**useMediaQuery custom hook**
+
+// the main point is ==> to keep track of the window width
+// how it works????
+
+
+step 1 ==> create a state
+step 2 ==> allows a string value (min-width) as props
+
+step 3 ==>  /* 
+                const media = window.matchMedia(query); 
+            */
+       ==> allows to compare the current width with a certain value
+       ==> return a object that contains a boolean 
+       ==> media.matches <== is a boolean value
+
+step 4 ==> /*
+                if (media.matches !== matches) {
+                    setMatches(media.matches);
+                }
+            */
+
+step 5 ==> keep setting state value (use setState function) 
+       ==> on resizing with eventlistener 'resize'
+       ==> window resizes -> eventlistener runs -> state value is set(either change or not it is set) -> useEffects runs -> media.matches keep getting track of the size -> 
+       return true or false
+       ==> when media.matches is changed to different value, step 4 runs -> state is changed to different value
+
+step 6 ==> return state
+       we can use this state(boolean) to know window is resized to a certain
+       min-width or not
+
+
+
+done till --> 1:22:41
+
+
+**************************************************************************************
+**************************************************************************************
+**************************************************************************************
+
+
+20/9/24
+
+**children 
+
+        --> are a type of React.ReactNode <--
+        /*
+            type Props = {
+                children:React.ReactNode;
+            }
+        */
+
+        --> add them in props destrucing also <--
+        /*
+            const ActionButton = ({children,setSelectedPage}: Props) => {}
+        */
+
+
+**changing navbar background if not on top of the page**
+
+step 1 --> in App --> create a state 
+step 2 --> use useEffects to add an eventlistener
+       --> using useEffects to add an eventlistener helps to remove eventlistener when you reach another page 
+       --> clean up function (return function in usestate)
+
+step 3 --> create a function that alters the state to true if scrollY === 0 
+       and false if not
+       -->/*
+            if(window.scrollY ===0){
+                setIsTopofPage(true);
+                setSelectedPage(SelectedPage.Home);
+            }
+            if(window.scrollY!==0){
+                setIsTopofPage(false);
+            }
+       */
+       --> the state shows if you're at the top or not
+       --> add the function to scroll event
+       --> now whenever you scroll the function runs and state changes
+
+step 4 --> use state value to add certain classes to the nav
+
+
+**Using before to add relative image to a div**
+
+step 1 --> relative on parent div
+step 2 --> another div to add "before -> content"
+step 3 --> inside is the base content
+
+            /*
+                <div className="relative">
+                    <div className="before:absolute 
+                    before:-top-20 
+                    before:content-evolvetext">
+                        <img src={HomePageText} alt="home-page-text" />
+                    </div>
+                </div>
+            */
+
+step 4 --> tailwind config --> url of the "before -> content" image 
+
+            /*
+                content: {
+                    evolvetext: "url('./assets/EvolveText.png')",
+                    abstractwaves: "url('./assets/AbstractWaves.png')",
+                    sparkles: "url('./assets/Sparkles.png')",
+                    circles: "url('./assets/Circles.png')",
+                },
+            */
+
+done till --> 2:22:27
+
+
+**************************************************************************************
+**************************************************************************************
+**************************************************************************************
+
+21/9/24
+
+
+benefitType --> Interface <-- is used to create a custom type
+
+--> "?" for optional data type
+
+/*
+    export interface ClassType {
+        name:string;
+        description?:string;
+        image:string;
+        }
+*/
+
+3:21:01
+
+**************************************************************************************
+**************************************************************************************
+**************************************************************************************
+
+
+22/9/24
+
+learn form submit @ 3:35:25
+
+form submit @3:49:00
