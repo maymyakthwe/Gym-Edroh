@@ -1,5 +1,4 @@
 import { ClassType } from '@/share/types'
-import React from 'react'
 
 type Props = {
     classData:ClassType
